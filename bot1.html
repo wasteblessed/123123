@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>XIVIVIDE App</title>
+<script src="https://unpkg.com/@discord/embedded-app-sdk/dist/index.js"></script>
+<style>
+body {
+    margin: 0;
+    background: #0f0f12;
+    color: white;
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.card {
+    background: #1a1a1f;
+    padding: 30px;
+    border-radius: 15px;
+    width: 350px;
+}
+.avatar {
+    width: 80px;
+    border-radius: 50%;
+}
+.balance {
+    margin-top: 15px;
+    font-size: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <img id="avatar" class="avatar">
+    <h2 id="username"></h2>
+    <div class="balance">Баланс: 3596 🪙</div>
+</div>
+
+<script>
+const discordSdk = new window.DiscordSDK.DiscordSDK("YOUR_CLIENT_ID");
+
+async function init() {
+    await discordSdk.ready();
+    const { user } = await discordSdk.commands.getUser();
+
+    document.getElementById("username").innerText = user.username;
+    document.getElementById("avatar").src =
+        `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
+}
+
+init();
+</script>
+
+</body>
+</html>
